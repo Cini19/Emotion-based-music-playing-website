@@ -1,0 +1,13 @@
+{% extends 'music/base.html'%}
+{% block body%}
+    <h1>List of all the music</h1>
+        <ol>
+            {% for music in object_list %}
+            <li>{{music.music_title}}</li>
+            <ul>
+                <li>{{music.emotion}}</li>
+                <li>{{music.access}}</li><br>
+            </ul>
+            {% endfor %}
+        </ol>
+{% endblock %}
