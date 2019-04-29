@@ -1,8 +1,10 @@
 body{
-    background-color: gray ;
+    background-color: #DBF3FA;
 }
 .navbar{
     border-radius:0;
+    background-color: #77C9D4;
+    font-color: white;
 }
 .navbar-brand{
     font-family: 'Satisfy',cursive;

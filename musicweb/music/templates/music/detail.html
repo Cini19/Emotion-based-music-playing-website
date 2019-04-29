@@ -1,0 +1,96 @@
+{% if log %}
+    {% include 'music/base.html' %}
+{% else %}
+    {% include 'music/base_visitor.html' %}
+{% endif %}
+{% block title %}{{ album }}{% endblock %}
+{% block albums_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid songs-container">
+
+    <div class="row">
+
+        <!-- Left Album Info -->
+        <div class="col-sm-4 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="{% url 'detail' emotion.id %}">
+                        {% if emotion.emo_pic %}
+                            <img src="{{ emotion.emo_pic.url }}" class="img-responsive">
+                        {% else %}
+                            <h3>No image to display</h3>
+                        {% endif %}
+                    </a>
+                    <h1>{{ emotion.emotion }} </h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Song Info -->
+        <div class="col-sm-8 col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <h3>All Songs</h3>
+
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Audio File</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for music in all_music %}
+                            <tr>
+                                <td>{{ music.music_title }}</td>
+                                <td>
+                                    <!--<a target="_blank" href="{{ music.song_upload.url }}">
+                                        <button type="button" class="btn btn-success btn-xs">
+                                            <span class="glyphicon glyphicon-play"></span>&nbsp;
+                                             <audio controls >
+                                                <source src="{{ music.song_upload.url }}" type="audio/mpeg">
+                                             </audio>
+                                             Play
+                                        </button>
+                                    </a>-->
+                                    <audio controls >
+                                        <source src="{{ music.song_upload.url }}" type="audio/mpeg">
+                                    </audio>
+
+                                </td>
+
+                            </tr>
+                        {% endfor %}
+                        {% for music in my_music %}
+                            {% if music not in all_music %}
+                                <tr>
+                                    <td>{{ music.music_title }}</td>
+                                    <td>
+
+                                        <audio controls >
+                                            <source src="{{ music.song_upload.url }}" type="audio/mpeg">
+                                        </audio>
+
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

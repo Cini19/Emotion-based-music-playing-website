@@ -1,0 +1,66 @@
+{% extends 'music/base.html' %}
+{% block title %}{{ album }}{% endblock %}
+{% block albums_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid songs-container">
+
+    <div class="row">
+        <!-- Right Song Info -->
+        <div class="col-sm-8 col-md-9">
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h1>{{ emotion.emotion }}</h1>
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Audio File</th>
+                            <th>Emotion</th>
+                            <th>Access</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr><th>Public</th></tr>
+                        {% for music in music_emotion.random %}
+                            <tr>
+                                <td>{{ music.music_title }}</td>
+                                <td>
+                                    <audio controls >
+                                        <source src="{{ music.song_upload.url }}" type="audio/mpeg">
+                                    </audio>
+                                </td>
+                                <td>{{ music.emotion }}</td>
+                                <td>{{ music.access }}</td>
+                        {% endfor %}
+                        <tr><th>Private</th></tr>
+                        {% for music in my_music.random %}
+                            <tr>
+                                <td>{{ music.music_title }}</td>
+                                <td>
+                                    <audio controls >
+                                        <source src="{{ music.song_upload.url }}" type="audio/mpeg">
+                                    </audio>
+                                </td>
+                                <td>{{ music.emotion }}</td>
+                                <td>{{ music.access }}</td>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

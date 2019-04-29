@@ -1,13 +1,37 @@
-{% extends 'music/base.html'%}
-{% block body%}
-    <h1>List of all the music</h1>
-        <ol>
-            {% for music in object_list %}
-            <li>{{music.music_title}}</li>
-            <ul>
-                <li>{{music.emotion}}</li>
-                <li>{{music.access}}</li><br>
-            </ul>
+{% if log %}
+    {% include 'music/base.html' %}
+{% else %}
+    {% include 'music/base_visitor.html' %}
+{% endif %}
+{% block albums_active %}active{% endblock %}
+
+{% block body %}
+<div class="albums-container container-fluid">
+
+    <!-- Albums -->
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>Emotions Of Music</h3>
+        </div>
+            {% for emotion in all_emotions %}
+                <div class="col-sm-4 col-lg-2">
+                    <div class="thumbnail">
+                        <a href="">
+                            <img src="{{ emotion.emo_pic.url }}" class="img-thumbnail"  width="700px" height="500px">
+                        </a>
+                        <div class="caption">
+                            <h2>{{ emotion.emotion }}</h2>
+                            <!--<h4>{{ album.artist }}</h4>-->
+
+                            <!-- View Details -->
+                            <a href="{% url 'detail' emotion.id %}" class="btn btn-primary btn-sm" role="button">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
             {% endfor %}
-        </ol>
+    </div>
+
+
+</div>
 {% endblock %}
